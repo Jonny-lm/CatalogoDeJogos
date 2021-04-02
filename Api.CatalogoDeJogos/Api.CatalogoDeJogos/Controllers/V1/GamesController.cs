@@ -28,9 +28,9 @@ namespace Api.CatalogoDeJogos.Controllers.V1
         }
 
         [HttpGet("{gameId:guid}")]
-        public async Task<ActionResult<GameViewModel>> GetGameById([FromRoute] Guid gameId)
+        public async Task<ActionResult<GameViewModel>> GetGameById([FromRoute] Guid gameId, [FromServices] IGameService gameService)
         {
-           var game = await _gameService.GetGameById(gameId);
+            var game = await gameService.GetGameById(gameId);
 
             return game == null ? NoContent() : game;
         }
