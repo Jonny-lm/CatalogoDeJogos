@@ -22,7 +22,7 @@ namespace Api.CatalogoDeJogos.Services
         public async Task<List<GameViewModel>> GetAllGames(int pag, int amount)
             => (await _gameRepository.GetPagination(pag, amount)).Select(x => new GameViewModel
             {
-                GameId = x.GameId,
+                GameId = Guid.Parse(x.GameId),
                 Name = x.Name,
                 Price = x.Price,
                 Production = x.Production
@@ -35,7 +35,7 @@ namespace Api.CatalogoDeJogos.Services
 
             return game == null ? null : new GameViewModel
             {
-                GameId = game.GameId,
+                GameId = Guid.Parse(game.GameId),
                 Name = game.Name,
                 Price = game.Price,
                 Production = game.Production
@@ -49,7 +49,7 @@ namespace Api.CatalogoDeJogos.Services
             if (entGame.Count() > 0) throw new GameAlreadyRegistered();
             var createGame =  new Game
             {
-                GameId = Guid.NewGuid(),
+                GameId = Guid.NewGuid().ToString(),
                 Name = game.Name,
                 Price = game.Price,
                 Production = game.Production
@@ -59,7 +59,7 @@ namespace Api.CatalogoDeJogos.Services
 
             return new GameViewModel
             {
-                GameId = createGame.GameId,
+                GameId = Guid.Parse(createGame.GameId),
                 Name = createGame.Name,
                 Production = createGame.Production,
                 Price = createGame.Price
