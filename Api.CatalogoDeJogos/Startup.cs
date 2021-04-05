@@ -1,18 +1,13 @@
+using Api.CatalogoDeJogos.Data;
 using Api.CatalogoDeJogos.Repositories;
 using Api.CatalogoDeJogos.Services;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Hosting; 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace Api.CatalogoDeJogos
 {
@@ -31,6 +26,7 @@ namespace Api.CatalogoDeJogos
 
             services.AddScoped < IGameService, GameService > ();
             services.AddScoped < IGameRepository, GameRepository > ();
+            services.AddSingleton<DbContext>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
